@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mvvm_flutter_masterclass/data/model/slider_model.dart';
+import 'package:mvvm_flutter_masterclass/presentation/boarding/components/boarding_component_view.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/color_manager.dart';
+import 'package:mvvm_flutter_masterclass/presentation/managers/strings_manager.dart';
+import 'package:mvvm_flutter_masterclass/presentation/managers/theme_manager.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/values_manager.dart';
 
 class BoardingView extends StatefulWidget {
@@ -35,21 +38,32 @@ class _BoardingViewState extends State<BoardingView> {
         itemCount: _sliders.length,
         itemBuilder: (context, index) {
           final slider = _sliders[index];
-          return Center(
-            child: Text(
-              slider.title,
-              style: GoogleFonts.montserrat(
-                fontSize: 24.0,
-              ),
-            ),
-          );
+          return BoardingComponent(slider);
         },
         onPageChanged: (index) {
           setState(() {
             _currentIndex = index;
-            debugPrint("Current Index = $_currentIndex");
           });
         },
+      ),
+      bottomSheet: Container(
+        color: ColorManager.white,
+        height: AppFontSize.s100,
+        child: Column(children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {},
+              child: Text(
+                AppStrings.skipString,
+                style: GoogleFonts.lato(
+                  color: ColorManager.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ]),
       ),
     );
   }

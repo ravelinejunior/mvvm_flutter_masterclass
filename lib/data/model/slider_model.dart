@@ -14,19 +14,19 @@ class SliderModel {
         SliderModel(
             title: AppStrings.onBoardingTitle1,
             subTitle: AppStrings.onBoardingSubTitle1,
-            image: "assests/images/onboarding_logo1.svg"),
+            image: "assets/images/onboarding_logo1.svg"),
         SliderModel(
             title: AppStrings.onBoardingTitle2,
             subTitle: AppStrings.onBoardingSubTitle2,
-            image: "assests/images/onboarding_logo2.svg"),
+            image: "assets/images/onboarding_logo2.svg"),
         SliderModel(
             title: AppStrings.onBoardingTitle3,
             subTitle: AppStrings.onBoardingSubTitle3,
-            image: "assests/images/onboarding_logo3.svg"),
+            image: "assets/images/onboarding_logo3.svg"),
         SliderModel(
             title: AppStrings.onBoardingTitle4,
             subTitle: AppStrings.onBoardingSubTitle4,
-            image: "assests/images/onboarding_logo4.svg"),
+            image: "assets/images/onboarding_logo4.svg"),
       ];
 
   @override
