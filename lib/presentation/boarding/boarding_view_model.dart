@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:mvvm_flutter_masterclass/data/model/slider_model.dart';
+import 'package:mvvm_flutter_masterclass/domain/slider_model.dart';
 import 'package:mvvm_flutter_masterclass/presentation/base/base_view_model.dart';
 
 class OnBoardViewModel extends BaseViewModel
@@ -9,42 +9,69 @@ class OnBoardViewModel extends BaseViewModel
   final StreamController _streamController =
       StreamController<SliderViewObject>();
 
+  late final List<SliderModel> _sliders;
+  int _currentIndex = 0;
+
+//call this method everytime that something changes
+  _postDataToView() {
+    //put the data inside the pipe
+    inputSliderViewObject.add(
+      SliderViewObject(
+          sliderModel: _sliders[_currentIndex],
+          numOfSlides: _sliders.length,
+          currentIndex: _currentIndex),
+    );
+  }
+
   // From base view model
   @override
   void dispose() {
-    // TODO: implement dispose
+    _streamController.close();
   }
 
   @override
   void start() {
-    // TODO: implement start
+    _sliders = SliderModel.getSlidersModel();
+    //send the slider to view
+
+    _postDataToView();
   }
 
   // from input and out put
 
   @override
   void goNextPage() {
-    // TODO: implement goNextPage
+    int nextIndex = _currentIndex++;
+    if (nextIndex >= _sliders.length) {
+      _currentIndex = 0;
+    }
+
+    _postDataToView();
   }
 
   @override
   void goPreviousPage() {
-    // TODO: implement goPreviousPage
+    int previusIndex = _currentIndex--;
+    if (previusIndex == -1) {
+      _currentIndex = _sliders.length - 1;
+    }
+
+    _postDataToView();
   }
 
   @override
   void onPageChanged(int index) {
-    // TODO: implement onPageChanged
+    _currentIndex = index;
+    _postDataToView();
   }
 
   @override
   // TODO: implement inputSliderViewObject
-  Sink get inputSliderViewObject => throw UnimplementedError();
-
+  Sink get inputSliderViewObject => _streamController.sink;
   @override
   // TODO: implement outputSliderViewObject
   Stream<SliderViewObject> get outputSliderViewObject =>
-      throw UnimplementedError();
+      _streamController.stream.map((sliderViewObject) => sliderViewObject);
 }
 
 abstract class OnBoardingViewModelInputs {

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mvvm_flutter_masterclass/data/model/slider_model.dart';
+import 'package:mvvm_flutter_masterclass/domain/slider_model.dart';
+import 'package:mvvm_flutter_masterclass/presentation/boarding/boarding_view_model.dart';
 import 'package:mvvm_flutter_masterclass/presentation/boarding/components/boarding_component_view.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/color_manager.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/strings_manager.dart';
@@ -16,13 +17,25 @@ class BoardingView extends StatefulWidget {
 }
 
 class _BoardingViewState extends State<BoardingView> {
-  late final List<SliderModel> _sliders = SliderModel.getSlidersModel();
-
   final PageController _pageController = PageController(initialPage: 0);
-  int _currentIndex = 0;
+  final _boardingViewModel = OnBoardViewModel();
+
+  _bind() {
+    _boardingViewModel.start();
+  }
+
+  @override
+  void initState() {
+    _bind();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    return _getContentWodget(context);
+  }
+
+  Widget _getContentWodget(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('OnBoarding'),
@@ -143,21 +156,9 @@ class _BoardingViewState extends State<BoardingView> {
     }
   }
 
-  int _getPreviousIndex() {
-    int previusIndex = _currentIndex--;
-    if (previusIndex == -1) {
-      _currentIndex = _sliders.length - 1;
-    }
-
-    return _currentIndex;
-  }
-
-  int _getNextIndex() {
-    int nextIndex = _currentIndex++;
-    if (nextIndex >= _sliders.length) {
-      _currentIndex = 0;
-    }
-
-    return _currentIndex;
+  @override
+  void dispose() {
+    _boardingViewModel.dispose();
+    super.dispose();
   }
 }
