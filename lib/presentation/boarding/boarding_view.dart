@@ -96,7 +96,9 @@ class _BoardingViewState extends State<BoardingView> {
         ),
       );
     } else {
-      return Container();
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator.adaptive()),
+      );
     }
   }
 
