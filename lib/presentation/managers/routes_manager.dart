@@ -26,7 +26,7 @@ class Routes {
     ),
     GetPage(
       name: ConstantsRoutes.onBoardingRoute,
-      page: () => BoardingView(),
+      page: () => const BoardingView(),
       transition: Transition.rightToLeftWithFade,
       transitionDuration: const Duration(seconds: 1),
       curve: Curves.linear,

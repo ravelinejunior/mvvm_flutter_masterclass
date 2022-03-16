@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:mvvm_flutter_masterclass/domain/slider_model.dart';
 import 'package:mvvm_flutter_masterclass/presentation/base/base_view_model.dart';
+import 'package:rxdart/rxdart.dart';
 
 class OnBoardViewModel extends BaseViewModel
     with OnBoardingViewModelInputs, OnBoardingViewModelOutputs {
   //Stream controllers
-  final StreamController _streamController =
-      StreamController<SliderViewObject>();
+  final BehaviorSubject _streamController = BehaviorSubject<SliderViewObject>();
 
   late final List<SliderModel> _sliders;
   int _currentIndex = 0;
@@ -40,23 +40,21 @@ class OnBoardViewModel extends BaseViewModel
   // from input and out put
 
   @override
-  void goNextPage() {
+  int goNextPage() {
     int nextIndex = _currentIndex++;
     if (nextIndex >= _sliders.length) {
       _currentIndex = 0;
     }
-
-    _postDataToView();
+    return _currentIndex;
   }
 
   @override
-  void goPreviousPage() {
+  int goPreviousPage() {
     int previusIndex = _currentIndex--;
     if (previusIndex == -1) {
       _currentIndex = _sliders.length - 1;
     }
-
-    _postDataToView();
+    return _currentIndex;
   }
 
   @override
@@ -66,17 +64,15 @@ class OnBoardViewModel extends BaseViewModel
   }
 
   @override
-  // TODO: implement inputSliderViewObject
   Sink get inputSliderViewObject => _streamController.sink;
   @override
-  // TODO: implement outputSliderViewObject
   Stream<SliderViewObject> get outputSliderViewObject =>
       _streamController.stream.map((sliderViewObject) => sliderViewObject);
 }
 
 abstract class OnBoardingViewModelInputs {
-  void goNextPage();
-  void goPreviousPage();
+  int goNextPage();
+  int goPreviousPage();
   void onPageChanged(int index);
 
   Sink get inputSliderViewObject;
@@ -96,16 +92,4 @@ class SliderViewObject {
     required this.numOfSlides,
     required this.currentIndex,
   });
-
-  SliderViewObject copyWith({
-    SliderModel? sliderModel,
-    int? numOfSlides,
-    int? currentIndex,
-  }) {
-    return SliderViewObject(
-      sliderModel: sliderModel ?? this.sliderModel,
-      numOfSlides: numOfSlides ?? this.numOfSlides,
-      currentIndex: currentIndex ?? this.currentIndex,
-    );
-  }
 }
