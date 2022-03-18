@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:mvvm_flutter_masterclass/domain/slider_model.dart';
+import 'package:mvvm_flutter_masterclass/data/model/slider_model.dart';
 import 'package:mvvm_flutter_masterclass/presentation/base/base_view_model.dart';
 import 'package:rxdart/rxdart.dart';
 

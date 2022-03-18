@@ -1,8 +1,8 @@
 import 'package:mvvm_flutter_masterclass/app/extensions.dart';
+import 'package:mvvm_flutter_masterclass/data/model/authentication_model.dart';
+import 'package:mvvm_flutter_masterclass/data/model/contacts_model.dart';
+import 'package:mvvm_flutter_masterclass/data/model/customer_model.dart';
 import 'package:mvvm_flutter_masterclass/data/response/responses.dart';
-import 'package:mvvm_flutter_masterclass/domain/authentication_model.dart';
-import 'package:mvvm_flutter_masterclass/domain/contacts_model.dart';
-import 'package:mvvm_flutter_masterclass/domain/customer_model.dart';
 
 const String emptyString = "";
 const int zeroInt = 0;
