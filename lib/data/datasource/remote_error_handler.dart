@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:mvvm_flutter_masterclass/data/response/failure_response.dart';
 
 enum DataSource {
@@ -13,7 +14,53 @@ enum DataSource {
   RECEIVE_TIMEOUT,
   SEND_TIMEOUT,
   CACHE_ERROR,
-  NO_INTERNET_CONNECTION
+  NO_INTERNET_CONNECTION,
+  UNKNOWN
+}
+
+class ErrorHandler implements Exception {
+  late Failure _failure;
+
+  ErrorHandler.handle(dynamic error) {
+    if (error is DioError) {
+      //response error
+      _failure = _handleError(error);
+    } else {
+      _failure = DataSource.UNKNOWN.getFailure();
+    }
+  }
+
+  Failure _handleError(DioError error) {
+    switch (error.type) {
+      case DioErrorType.connectTimeout:
+        return DataSource.CONNECT_TIMEOUT.getFailure();
+      case DioErrorType.sendTimeout:
+        return DataSource.SEND_TIMEOUT.getFailure();
+      case DioErrorType.receiveTimeout:
+        return DataSource.RECEIVE_TIMEOUT.getFailure();
+      case DioErrorType.response:
+        switch (error.response!.statusCode) {
+          case ResponseCode.BAD_REQUEST:
+            return DataSource.BAD_REQUEST.getFailure();
+          case ResponseCode.FORBIDDEN:
+            return DataSource.FORBIDDEN.getFailure();
+          case ResponseCode.UNAUTHORIZED:
+            return DataSource.UNAUTHORIZED.getFailure();
+          case ResponseCode.NOT_FOUND:
+            return DataSource.NOT_FOUND.getFailure();
+          case ResponseCode.INTERNAL_SERVER_ERROR:
+            return DataSource.INTERNAL_SERVER_ERROR.getFailure();
+          default:
+            return DataSource.UNKNOWN.getFailure();
+        }
+      case DioErrorType.cancel:
+        return DataSource.CANCEL.getFailure();
+      case DioErrorType.other:
+        return DataSource.UNKNOWN.getFailure();
+      default:
+        return DataSource.UNKNOWN.getFailure();
+    }
+  }
 }
 
 class ResponseCode {
@@ -91,6 +138,8 @@ extension DataSourceExtension on DataSource {
       case DataSource.NO_INTERNET_CONNECTION:
         return Failure(ResponseCode.NO_INTERNET_CONNECTION,
             ResponseMessage.NO_INTERNET_CONNECTION);
+      case DataSource.UNKNOWN:
+        return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
       default:
         return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
     }

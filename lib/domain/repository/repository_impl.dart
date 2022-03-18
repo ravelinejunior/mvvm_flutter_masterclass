@@ -30,13 +30,13 @@ class RepositoryImpl extends Repository {
         //return left from Either method
 
         return Left(Failure(
-          code: 409,
-          message: response.message ?? "Generic Business Error From Api",
+          409,
+          response.message ?? "Generic Business Error From Api",
         ));
       }
     } else {
       // connection error
-      return Left(Failure(code: 501, message: "No Internet Connection!"));
+      return Left(Failure(501, "No Internet Connection!"));
     }
   }
 }
