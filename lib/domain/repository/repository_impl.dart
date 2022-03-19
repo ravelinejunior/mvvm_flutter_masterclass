@@ -1,5 +1,6 @@
 import 'package:mvvm_flutter_masterclass/data/api/network_info.dart';
 import 'package:mvvm_flutter_masterclass/data/datasource/remote_data_source.dart';
+import 'package:mvvm_flutter_masterclass/data/datasource/remote_error_handler.dart';
 import 'package:mvvm_flutter_masterclass/data/response/failure_response.dart';
 import 'package:mvvm_flutter_masterclass/data/request/login_request.dart';
 import 'package:mvvm_flutter_masterclass/data/model/authentication_model.dart';
@@ -17,26 +18,30 @@ class RepositoryImpl extends Repository {
   Future<Either<Failure, AuthenticationModel>> login(
       LoginRequest loginRequest) async {
     if (await _networkInfo.isConnected) {
-      // safe call api
-      final response = await _dataSource.loginDataSource(loginRequest);
+      try {
+        // safe call api
+        final response = await _dataSource.loginDataSource(loginRequest);
 
-      if (response.status == 0) {
-        // return data
-        //return right from Either class (it means it was Right ok success)
+        if (response.status == ApiInternalStatus.SUCCESS) {
+          // return data
+          //return right from Either class (it means it was Right ok success)
 
-        return Right(response.toDomain());
-      } else {
-        //return business logic error
-        //return left from Either method
+          return Right(response.toDomain());
+        } else {
+          //return business logic error
+          //return left from Either method
 
-        return Left(Failure(
-          409,
-          response.message ?? "Generic Business Error From Api",
-        ));
+          return Left(Failure(
+            response.status ?? ApiInternalStatus.FAILURE,
+            response.message ?? ResponseMessage.UNKNOWN,
+          ));
+        }
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
       }
     } else {
       // connection error
-      return Left(Failure(501, "No Internet Connection!"));
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
 }

@@ -19,14 +19,14 @@ enum DataSource {
 }
 
 class ErrorHandler implements Exception {
-  late Failure _failure;
+  late Failure failure;
 
   ErrorHandler.handle(dynamic error) {
     if (error is DioError) {
       //response error
-      _failure = _handleError(error);
+      failure = _handleError(error);
     } else {
-      _failure = DataSource.UNKNOWN.getFailure();
+      failure = DataSource.UNKNOWN.getFailure();
     }
   }
 
@@ -144,4 +144,9 @@ extension DataSourceExtension on DataSource {
         return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
     }
   }
+}
+
+class ApiInternalStatus {
+  static const int SUCCESS = 0;
+  static const int FAILURE = 1;
 }
