@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:mvvm_flutter_masterclass/app/app_prefs.dart';
 import 'package:mvvm_flutter_masterclass/app/constants.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -10,6 +11,8 @@ const String AUTHORIZATION = "authorization";
 const String DEFAULT_LANGUAGE = "language";
 
 class DioFactory {
+  final AppPreferences _appPreferences;
+  DioFactory(this._appPreferences);
   Future<Dio> getDio() async {
     final Dio dio = Dio();
 
