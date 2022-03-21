@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+import 'package:mvvm_flutter_masterclass/data/model/login_use_case_input_model.dart';
+import 'package:mvvm_flutter_masterclass/domain/use_case/login_use_case.dart';
 import 'package:mvvm_flutter_masterclass/presentation/base/base_view_model.dart';
 import 'package:mvvm_flutter_masterclass/presentation/common/freezed_data_classes.dart';
 import 'package:rxdart/rxdart.dart';
@@ -9,6 +12,9 @@ class LoginViewModel extends BaseViewModel
       BehaviorSubject<String>();
 
   var loginObject = LoginObject("", "");
+
+  final LoginUseCase _loginUseCase;
+  LoginViewModel(this._loginUseCase);
 
   ///from base view model
   @override
@@ -28,8 +34,18 @@ class LoginViewModel extends BaseViewModel
   Sink get inputUserPassword => _userPasswordStreamController.sink;
 
   @override
-  loginUser() {
-    throw UnimplementedError();
+  loginUser() async {
+    (await _loginUseCase.execute(LoginUseCaseInputModel(
+            email: loginObject.userName, password: loginObject.userPassword)))
+        .fold(
+            (failure) => {
+                  // left -> failure
+                  debugPrint(failure.message)
+                },
+            (data) => {
+                  //right -> success
+                  debugPrint(data.toString())
+                });
   }
 
   @override
@@ -44,11 +60,13 @@ class LoginViewModel extends BaseViewModel
   @override
   setPassword(String password) {
     inputUserPassword.add(password);
+    loginObject = loginObject.copyWith(userPassword: password);
   }
 
   @override
   setUserName(String userName) {
     inputUserPassword.add(userName);
+    loginObject = loginObject.copyWith(userName: userName);
   }
 
   _isNameValid(String name) {
