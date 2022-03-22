@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mvvm_flutter_masterclass/presentation/boarding/boarding_view_model.dart';
 import 'package:mvvm_flutter_masterclass/presentation/boarding/components/boarding_component_view.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/color_manager.dart';
+import 'package:mvvm_flutter_masterclass/presentation/managers/routes_manager.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/strings_manager.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/values_manager.dart';
 
@@ -73,11 +76,12 @@ class _BoardingViewState extends State<BoardingView> {
               child: TextButton(
                 style: TextButton.styleFrom(primary: ColorManager.primary),
                 onPressed: () {
-                  _pageController.animateToPage(
+                  Get.offAndToNamed(ConstantsRoutes.loginRoute);
+                  /*  _pageController.animateToPage(
                     sliderViewObject.numOfSlides - 1,
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.bounceIn,
-                  );
+                  ); */
                 },
                 child: Text(
                   AppStrings.skipString,
