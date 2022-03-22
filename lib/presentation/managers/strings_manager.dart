@@ -15,4 +15,14 @@ class AppStrings {
       "This app is an awesome Flutter application using clean architecture #4";
 
   static const String skipString = "SKIP";
+
+  static const String registerString = "Not a member? Sign up";
+  static const String userNameString = "Username";
+  static const String userPasswordString = "Password";
+  static const String forgetString = "Forget Password";
+  static const String emailString = "Email";
+  static const String phoneNumberString = "Phone Number";
+  static const String loginString = "Login";
+  static const String errorUserNameString = "Wrong user name";
+  static const String errorUserPasswordString = "Wrong user password";
 }

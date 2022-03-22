@@ -10,6 +10,8 @@ class LoginViewModel extends BaseViewModel
   final BehaviorSubject _userNameStreamController = BehaviorSubject<String>();
   final BehaviorSubject _userPasswordStreamController =
       BehaviorSubject<String>();
+  final BehaviorSubject _isAllInputsValidStreamController =
+      BehaviorSubject<void>();
 
   var loginObject = LoginObject("", "");
 
@@ -24,6 +26,7 @@ class LoginViewModel extends BaseViewModel
   void dispose() {
     _userNameStreamController.close();
     _userPasswordStreamController.close();
+    _isAllInputsValidStreamController.close();
   }
 
 //from streams implementation
@@ -32,6 +35,9 @@ class LoginViewModel extends BaseViewModel
 
   @override
   Sink get inputUserPassword => _userPasswordStreamController.sink;
+
+  @override
+  Sink get inputIsAllInputsValid => _isAllInputsValidStreamController.sink;
 
   @override
   loginUser() async {
@@ -58,15 +64,21 @@ class LoginViewModel extends BaseViewModel
           .map((pass) => _isPasswordValid(pass));
 
   @override
+  Stream<bool> get outputIsAllInputsValid =>
+      _isAllInputsValidStreamController.stream.map((_) => _isAllValid());
+
+  @override
   setPassword(String password) {
     inputUserPassword.add(password);
     loginObject = loginObject.copyWith(userPassword: password);
+    inputIsAllInputsValid.add(null);
   }
 
   @override
   setUserName(String userName) {
-    inputUserPassword.add(userName);
+    inputUserName.add(userName);
     loginObject = loginObject.copyWith(userName: userName);
+    inputIsAllInputsValid.add(null);
   }
 
   _isNameValid(String name) {
@@ -75,6 +87,11 @@ class LoginViewModel extends BaseViewModel
 
   _isPasswordValid(String password) {
     return password.isNotEmpty;
+  }
+
+  bool _isAllValid() {
+    return _isNameValid(loginObject.userName) &&
+        _isPasswordValid(loginObject.userPassword);
   }
 }
 
@@ -87,9 +104,11 @@ abstract class LoginViewModelInputs {
 
   Sink get inputUserName;
   Sink get inputUserPassword;
+  Sink get inputIsAllInputsValid;
 }
 
 abstract class LoginViewModelOutputs {
   Stream<bool> get outputIsUserNameValid;
   Stream<bool> get outputIsUserPasswordValid;
+  Stream<bool> get outputIsAllInputsValid;
 }
