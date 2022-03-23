@@ -77,14 +77,22 @@ class _LoginViewState extends State<LoginView> {
                         keyboardType: TextInputType.emailAddress,
                         controller: _nameTextController,
                         decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(AppFontSize.s12),
+                              borderSide: const BorderSide(
+                                  color: Colors.deepOrangeAccent, width: 2)),
+                          fillColor: Colors.deepOrangeAccent,
                           border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.circular(AppFontSize.s12),
                             borderSide: const BorderSide(
                                 color: Colors.orange,
-                                width: 1.0,
+                                width: 2.0,
                                 style: BorderStyle.solid),
                           ),
+                          labelStyle:
+                              GoogleFonts.lato(color: Colors.deepOrangeAccent),
                           hintText: AppStrings.userNameString,
                           labelText: AppStrings.userNameString,
                           errorText: (snapshot.hasData)
@@ -107,12 +115,20 @@ class _LoginViewState extends State<LoginView> {
                         keyboardType: TextInputType.visiblePassword,
                         controller: _passwordTextController,
                         decoration: InputDecoration(
+                          labelStyle:
+                              GoogleFonts.lato(color: Colors.deepOrangeAccent),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(AppFontSize.s12),
+                              borderSide: const BorderSide(
+                                  color: Colors.deepOrangeAccent, width: 2)),
+                          fillColor: Colors.deepOrangeAccent,
                           border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.circular(AppFontSize.s12),
                             borderSide: const BorderSide(
                                 color: Colors.orange,
-                                width: 1.0,
+                                width: 2.0,
                                 style: BorderStyle.solid),
                           ),
                           hintText: AppStrings.userPasswordString,
@@ -134,17 +150,64 @@ class _LoginViewState extends State<LoginView> {
                   child: StreamBuilder<bool>(
                     stream: _loginViewModel.outputIsAllInputsValid,
                     builder: (_, snapshot) => ElevatedButton(
-                        onPressed: (snapshot.data ?? false)
-                            ? () {
-                                _loginViewModel.loginUser();
-                              }
-                            : null,
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.orange,
+                        shadowColor: Colors.orange,
+                        minimumSize: const Size(50, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(AppFontSize.s16),
+                        ),
+                      ),
+                      onPressed: (snapshot.data ?? false)
+                          ? () {
+                              _loginViewModel.loginUser();
+                            }
+                          : null,
+                      child: Text(
+                        AppStrings.loginString,
+                        style: GoogleFonts.lato(
+                            fontWeight: FontWeight.bold,
+                            fontSize: AppFontSize.s18,
+                            color: snapshot.data ?? false
+                                ? Colors.white
+                                : Colors.black),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(AppPadding.p14),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
                         child: Text(
-                          AppStrings.loginString,
+                          AppStrings.forgetString,
                           style: GoogleFonts.lato(
-                            color: Colors.white,
+                            color: Colors.orange,
+                            fontWeight: FontWeight.bold,
                           ),
-                        )),
+                        ),
+                        style: TextButton.styleFrom(
+                          primary: Colors.white,
+                          backgroundColor: Colors.transparent,
+                        ),
+                        onPressed: () {},
+                      ),
+                      TextButton(
+                        child: Text(AppStrings.registerString,
+                            style: GoogleFonts.lato(
+                              color: Colors.orange,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        style: TextButton.styleFrom(
+                          primary: Colors.white,
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.red,
+                        ),
+                        onPressed: () {},
+                      ),
+                    ],
                   ),
                 )
               ],
