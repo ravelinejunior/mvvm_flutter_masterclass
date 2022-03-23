@@ -1,5 +1,6 @@
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
+import 'package:mvvm_flutter_masterclass/domain/di/di.dart';
 import 'package:mvvm_flutter_masterclass/presentation/boarding/boarding_view.dart';
 import 'package:mvvm_flutter_masterclass/presentation/login/login_view.dart';
 import 'package:mvvm_flutter_masterclass/presentation/password/password_view.dart';
@@ -33,7 +34,10 @@ class Routes {
     ),
     GetPage(
       name: ConstantsRoutes.loginRoute,
-      page: () => const LoginView(),
+      page: () {
+        initLoginModule();
+        return LoginView();
+      },
       transition: Transition.rightToLeftWithFade,
       transitionDuration: const Duration(seconds: 1),
       curve: Curves.linear,

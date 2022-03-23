@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mvvm_flutter_masterclass/data/api/network_info.dart';
+import 'package:mvvm_flutter_masterclass/data/datasource/remote_data_source.dart';
+import 'package:mvvm_flutter_masterclass/domain/di/di.dart';
+import 'package:mvvm_flutter_masterclass/domain/repository/repository_impl.dart';
+import 'package:mvvm_flutter_masterclass/domain/use_case/login_use_case.dart';
 import 'package:mvvm_flutter_masterclass/presentation/login/login_view_model/login_view_model.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/strings_manager.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/values_manager.dart';
@@ -12,7 +17,9 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final _loginViewModel = LoginViewModel(null);
+  //initialized on DI
+  final _loginViewModel = instance<LoginViewModel>();
+
   final _nameTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
