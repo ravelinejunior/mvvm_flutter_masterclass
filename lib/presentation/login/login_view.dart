@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mvvm_flutter_masterclass/data/api/network_info.dart';
-import 'package:mvvm_flutter_masterclass/data/datasource/remote_data_source.dart';
 import 'package:mvvm_flutter_masterclass/domain/di/di.dart';
-import 'package:mvvm_flutter_masterclass/domain/repository/repository_impl.dart';
-import 'package:mvvm_flutter_masterclass/domain/use_case/login_use_case.dart';
 import 'package:mvvm_flutter_masterclass/presentation/login/login_view_model/login_view_model.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/strings_manager.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/values_manager.dart';

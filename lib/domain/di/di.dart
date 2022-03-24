@@ -4,6 +4,7 @@ import 'package:mvvm_flutter_masterclass/app/app_prefs.dart';
 import 'package:mvvm_flutter_masterclass/data/api/app_api.dart';
 import 'package:mvvm_flutter_masterclass/data/api/dio_factory.dart';
 import 'package:mvvm_flutter_masterclass/data/api/network_info.dart';
+import 'package:mvvm_flutter_masterclass/data/datasource/remote_data_source.dart';
 import 'package:mvvm_flutter_masterclass/domain/repository/repository.dart';
 import 'package:mvvm_flutter_masterclass/domain/repository/repository_impl.dart';
 import 'package:mvvm_flutter_masterclass/domain/use_case/login_use_case.dart';
@@ -29,6 +30,10 @@ Future<void> initAppModules() async {
   //app service client
   final dio = await instance<DioFactory>().getDio();
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
+
+  //remote data source
+  instance.registerLazySingleton<RemoteDataSource>(
+      () => RemoteDataSourceImpl(instance()));
 
   //repository
   instance.registerLazySingleton<Repository>(

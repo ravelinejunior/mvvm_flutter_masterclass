@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mvvm_flutter_masterclass/domain/di/di.dart';
 import 'package:mvvm_flutter_masterclass/presentation/boarding/boarding_view_model.dart';
 import 'package:mvvm_flutter_masterclass/presentation/boarding/components/boarding_component_view.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/color_manager.dart';
@@ -76,6 +77,7 @@ class _BoardingViewState extends State<BoardingView> {
               child: TextButton(
                 style: TextButton.styleFrom(primary: ColorManager.primary),
                 onPressed: () {
+                  initLoginModule();
                   Get.offAndToNamed(ConstantsRoutes.loginRoute);
                   /*  _pageController.animateToPage(
                     sliderViewObject.numOfSlides - 1,
