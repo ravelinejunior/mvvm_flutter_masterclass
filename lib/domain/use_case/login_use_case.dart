@@ -15,12 +15,21 @@ class LoginUseCase
   Future<Either<Failure, AuthenticationModel>> execute(input) async {
     final deviceInfo = await getDeviceDetails();
 
+    // await _repository.login(
+    //   LoginRequest(
+    //     email: input.email,
+    //     password: input.password,
+    //     imei: deviceInfo.identifier,
+    //     deviceType: deviceInfo.name,
+    //   ),
+    // );
+
     await _repository.login(
       LoginRequest(
         email: input.email,
         password: input.password,
-        imei: deviceInfo.identifier,
-        deviceType: deviceInfo.name,
+        imei: "1234",
+        deviceType: "Samsung J8",
       ),
     );
     throw UnimplementedError();

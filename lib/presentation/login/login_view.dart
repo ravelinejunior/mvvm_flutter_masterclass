@@ -24,10 +24,10 @@ class _LoginViewState extends State<LoginView> {
     _loginViewModel.start();
 
     _nameTextController.addListener(
-        () => _loginViewModel.setUserName(_nameTextController.text));
+        () => _loginViewModel.setUserName(_nameTextController.text.trim()));
 
-    _passwordTextController.addListener(
-        () => _loginViewModel.setPassword(_passwordTextController.text));
+    _passwordTextController.addListener(() =>
+        _loginViewModel.setPassword(_passwordTextController.text.trimLeft()));
   }
 
   @override
