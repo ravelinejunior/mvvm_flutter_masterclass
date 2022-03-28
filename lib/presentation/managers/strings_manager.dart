@@ -25,4 +25,6 @@ class AppStrings {
   static const String loginString = "Login";
   static const String errorUserNameString = "Wrong user name";
   static const String errorUserPasswordString = "Wrong user password";
+  static const String loadingString = "Loading";
+  static const String retryAgainString = "Retry Again";
 }

@@ -1,3 +1,5 @@
+import 'package:mvvm_flutter_masterclass/data/datasource/remote_error_handler.dart';
+
 class Failure {
   int code;
   String message;
@@ -7,6 +9,6 @@ class Failure {
   );
 }
 
-class DefaultFailure extends Failure{
-  DefaultFailure(): super(ResponseCode.UNKNOWN,ResponseMessage.UNKNOWN);
+class DefaultFailure extends Failure {
+  DefaultFailure() : super(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
 }
