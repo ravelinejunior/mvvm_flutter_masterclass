@@ -6,3 +6,7 @@ class Failure {
     this.message,
   );
 }
+
+class DefaultFailure extends Failure{
+  DefaultFailure(): super(ResponseCode.UNKNOWN,ResponseMessage.UNKNOWN);
+}
