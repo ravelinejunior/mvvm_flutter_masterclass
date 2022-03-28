@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mvvm_flutter_masterclass/data/response/failure_response.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/color_manager.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/font_manager.dart';
@@ -40,77 +41,96 @@ class StateRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return _getStateWidget(context);
   }
 
   Widget _getStateWidget(BuildContext context) {
     switch (stateRendererType) {
       case StateRendererType.POPUP_LOADING_STATE:
-        break;
+        return _getPopupDialog(
+            context, [_getAnimatedImage('loading_lottie.json')]);
       case StateRendererType.POPUP_ERROR_STATE:
-        break;
+        return _getPopupDialog(context, [
+          _getAnimatedImage('error_lottie.json'),
+          _getMessage(failure.message),
+          _getRetryButton(
+            AppStrings.retryAgainString,
+            context,
+          ),
+        ]);
       case StateRendererType.FULL_SCREEN_LOADING_STATE:
-        _getItemsInColumn([_getAnimatedImage(),_getMessage(message)]);
-        break;
+        return _getItemsInColumn(
+            [_getAnimatedImage('loading_lottie.json'), _getMessage(message)]);
+
       case StateRendererType.FULL_SCREEN_ERROR_STATE:
-       _getItemsInColumn([_getAnimatedImage(),_getMessage(message),_getRetryButton(AppStrings.retryAgainString,context)]);
-        break;
+        return _getItemsInColumn([
+          _getAnimatedImage('not_found_lottie.json'),
+          _getMessage(message),
+          _getRetryButton(AppStrings.confirmString, context)
+        ]);
       case StateRendererType.CONTENT_SCREEN_STATE:
-        break;
+        return Container();
       case StateRendererType.EMPTY_SCREEN_STATE:
-        break;
+        return _getItemsInColumn(
+            [_getAnimatedImage('error_lottie.json'), _getMessage(message)]);
+
       default:
         return Container();
     }
   }
 
-  Widget _getAnimatedImage(){
+  Widget _getAnimatedImage(String animationName) {
     return SizedBox(
       height: AppFontSize.s100,
       width: AppFontSize.s100,
-      child: //json image,
+      child: Lottie.asset('assets/json/$animationName'), //json image,
     );
   }
 
-  Widget _getMessage(String message){
+  Widget _getMessage(String message) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(AppFontSize.s18),
-        child: Text(message,style: GoogleFonts.lato(color:ColorManager.black,fontSize: FontSizeManager.s16,)),
+        child: Text(message,
+            style: GoogleFonts.lato(
+              color: ColorManager.black,
+              fontSize: FontSizeManager.s16,
+            )),
       ),
     );
   }
 
-  Widget _getRetryButton(String buttonTitle,BuildContext context){
-    return  Center(
+  Widget _getRetryButton(String buttonTitle, BuildContext context) {
+    return Center(
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p18),
         child: SizedBox(
           width: AppFontSize.s200,
           child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.orange,
-                              shadowColor: Colors.orange,
-                              minimumSize: const Size(50, 50),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(AppFontSize.s16),
-                              ),
-                            ),
-                            onPressed:() {
-                              if(stateRendererType == StateRendererType.FULL_SCREEN_ERROR_STATE){
-                                retryActionFunction?.call(); // call inside the api
-                              }else {
-                                Get.back();
-                              }
-                            },
-                            child: Text(
-                              buttonTitle,
-                              style: GoogleFonts.lato(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: AppFontSize.s16,
-                              
-                            ),
-                          ),),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.orange,
+              shadowColor: Colors.orange,
+              minimumSize: const Size(50, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppFontSize.s16),
+              ),
+            ),
+            onPressed: () {
+              if (stateRendererType ==
+                  StateRendererType.FULL_SCREEN_ERROR_STATE) {
+                retryActionFunction?.call(); // call inside the api
+              } else {
+                Get.back();
+              }
+            },
+            child: Text(
+              buttonTitle,
+              style: GoogleFonts.lato(
+                fontWeight: FontWeight.bold,
+                fontSize: AppFontSize.s16,
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -118,6 +138,44 @@ class StateRenderer extends StatelessWidget {
 
   Widget _getItemsInColumn(List<Widget> children) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: children,
+    );
+  }
+
+  Widget _getPopupDialog(BuildContext context, List<Widget> children) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          AppFontSize.s16,
+        ),
+      ),
+      elevation: AppFontSize.s1_5,
+      backgroundColor: Colors.transparent,
+      child: Container(
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(
+            AppFontSize.s12,
+          ),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: AppFontSize.s12,
+              offset: Offset(0, AppFontSize.s12),
+            ),
+          ],
+        ),
+        child: _getDialogContent(context, children),
+      ),
+    );
+  }
+
+  Widget _getDialogContent(BuildContext context, List<Widget> children) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: children,

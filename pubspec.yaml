@@ -50,6 +50,7 @@ dependencies:
   shared_preferences: ^2.0.13
   device_info_plus: ^3.2.2
   freezed_annotation:
+  lottie: ^1.2.2
 
 dev_dependencies:
   flutter_test:
