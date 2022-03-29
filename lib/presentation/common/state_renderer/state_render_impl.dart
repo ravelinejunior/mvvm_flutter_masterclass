@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mvvm_flutter_masterclass/presentation/common/state_renderer/state_renderer.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/strings_manager.dart';
 
@@ -57,4 +58,59 @@ class ContentStateFlow extends StateFlow {
   @override
   StateRendererType getStateRendererType() =>
       StateRendererType.CONTENT_SCREEN_STATE;
+}
+
+extension FlowStateExtension on StateFlow {
+  Widget getScreenWidget(BuildContext context, Widget contentScreenWidget,
+      Function retryActionFunction) {
+    switch (this.runtimeType) {
+      case LoadingStateFlow:
+        {
+          if (getStateRendererType() == StateRendererType.POPUP_LOADING_STATE) {
+            showPopup(
+              context,
+              StateRendererType.POPUP_LOADING_STATE,
+              getMessage(),
+            );
+
+            return contentScreenWidget;
+          } else {
+            return StateRenderer(
+              stateRendererType: getStateRendererType(),
+              message: getMessage(),
+              retryActionFunction: () {},
+            );
+          }
+        }
+      case ErrorStateFlow:
+        {
+          break;
+        }
+      case ContentStateFlow:
+        {
+          break;
+        }
+      case EmptyStateFlow:
+        {
+          break;
+        }
+      default:
+        {
+          break;
+        }
+    }
+  }
+
+  showPopup(BuildContext context, StateRendererType state, String message) {
+    WidgetsBinding.instance?.addPostFrameCallback(
+      (timeStamp) => showDialog(
+        context: context,
+        builder: (context) => StateRenderer(
+          stateRendererType: state,
+          message: message,
+          retryActionFunction: () {},
+        ),
+      ),
+    );
+  }
 }
