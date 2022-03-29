@@ -69,7 +69,7 @@ extension FlowStateExtension on StateFlow {
           if (getStateRendererType() == StateRendererType.POPUP_LOADING_STATE) {
             showPopup(
               context,
-              StateRendererType.POPUP_LOADING_STATE,
+              StateRendererType.FULL_SCREEN_LOADING_STATE,
               getMessage(),
             );
 
@@ -84,19 +84,37 @@ extension FlowStateExtension on StateFlow {
         }
       case ErrorStateFlow:
         {
-          break;
+          if (getStateRendererType() == StateRendererType.POPUP_ERROR_STATE) {
+            showPopup(
+              context,
+              StateRendererType.FULL_SCREEN_ERROR_STATE,
+              getMessage(),
+            );
+
+            return contentScreenWidget;
+          } else {
+            return StateRenderer(
+              stateRendererType: getStateRendererType(),
+              message: getMessage(),
+              retryActionFunction: () {},
+            );
+          }
         }
       case ContentStateFlow:
         {
-          break;
+          return contentScreenWidget;
         }
       case EmptyStateFlow:
         {
-          break;
+          return StateRenderer(
+            stateRendererType: getStateRendererType(),
+            retryActionFunction: retryActionFunction,
+            message: getMessage(),
+          );
         }
       default:
         {
-          break;
+          return contentScreenWidget;
         }
     }
   }
