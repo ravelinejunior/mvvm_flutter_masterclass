@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvvm_flutter_masterclass/presentation/common/state_renderer/state_renderer.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/strings_manager.dart';

@@ -3,6 +3,7 @@ import 'package:mvvm_flutter_masterclass/data/model/login_use_case_input_model.d
 import 'package:mvvm_flutter_masterclass/domain/use_case/login_use_case.dart';
 import 'package:mvvm_flutter_masterclass/presentation/base/base_view_model.dart';
 import 'package:mvvm_flutter_masterclass/presentation/common/freezed_data_classes.dart';
+import 'package:mvvm_flutter_masterclass/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LoginViewModel extends BaseViewModel
@@ -20,7 +21,9 @@ class LoginViewModel extends BaseViewModel
 
   ///from base view model
   @override
-  void start() {}
+  void start() {
+    inputState.add(ContentStateFlow());
+  }
 
   @override
   void dispose() {
