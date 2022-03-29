@@ -63,7 +63,7 @@ class ContentStateFlow extends StateFlow {
 extension FlowStateExtension on StateFlow {
   Widget getScreenWidget(BuildContext context, Widget contentScreenWidget,
       Function retryActionFunction) {
-    switch (this.runtimeType) {
+    switch (runtimeType) {
       case LoadingStateFlow:
         {
           if (getStateRendererType() == StateRendererType.POPUP_LOADING_STATE) {
@@ -84,6 +84,7 @@ extension FlowStateExtension on StateFlow {
         }
       case ErrorStateFlow:
         {
+          dismissDialog(context);
           if (getStateRendererType() == StateRendererType.POPUP_ERROR_STATE) {
             showPopup(
               context,
@@ -102,6 +103,7 @@ extension FlowStateExtension on StateFlow {
         }
       case ContentStateFlow:
         {
+          dismissDialog(context);
           return contentScreenWidget;
         }
       case EmptyStateFlow:
@@ -114,8 +116,15 @@ extension FlowStateExtension on StateFlow {
         }
       default:
         {
+          dismissDialog(context);
           return contentScreenWidget;
         }
+    }
+  }
+
+  dismissDialog(BuildContext context) {
+    if (_isThereCurrentDialogShowing(context)) {
+      Navigator.of(context, rootNavigator: true).pop(true);
     }
   }
 
@@ -131,4 +140,7 @@ extension FlowStateExtension on StateFlow {
       ),
     );
   }
+
+  bool _isThereCurrentDialogShowing(BuildContext context) =>
+      ModalRoute.of(context)?.isCurrent != true;
 }
