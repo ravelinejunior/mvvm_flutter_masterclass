@@ -17,7 +17,7 @@ class DioFactory {
     final Dio dio = Dio();
 
     const int _timeout = 60 * 1000;
-    const Map<String, String> _headers = {
+    const Map<String, dynamic> _headers = {
       CONTENT_TYPE: APPLICATION_JSON,
       ACCEPT: APPLICATION_JSON,
       AUTHORIZATION: constToken,

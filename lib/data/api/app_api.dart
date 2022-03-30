@@ -4,7 +4,7 @@ import 'package:mvvm_flutter_masterclass/data/response/responses.dart';
 import 'package:retrofit/http.dart';
 part 'app_api.g.dart';
 
-@RestApi(baseUrl: constBaseUrl, autoCastResponse: true)
+@RestApi(baseUrl: constBaseUrl)
 abstract class AppServiceClient {
   factory AppServiceClient(Dio dio, {String baseUrl}) = _AppServiceClient;
 

@@ -69,7 +69,7 @@ extension FlowStateExtension on StateFlow {
             showPopup(
               context,
               StateRendererType.FULL_SCREEN_LOADING_STATE,
-              getMessage(),
+              getMessage().toUpperCase(),
             );
 
             return contentScreenWidget;
@@ -88,14 +88,14 @@ extension FlowStateExtension on StateFlow {
             showPopup(
               context,
               StateRendererType.FULL_SCREEN_ERROR_STATE,
-              getMessage(),
+              getMessage().toUpperCase(),
             );
 
             return contentScreenWidget;
           } else {
             return StateRenderer(
               stateRendererType: getStateRendererType(),
-              message: getMessage(),
+              message: getMessage().toUpperCase(),
               retryActionFunction: () {},
             );
           }
@@ -110,7 +110,7 @@ extension FlowStateExtension on StateFlow {
           return StateRenderer(
             stateRendererType: getStateRendererType(),
             retryActionFunction: retryActionFunction,
-            message: getMessage(),
+            message: getMessage().toUpperCase(),
           );
         }
       default:

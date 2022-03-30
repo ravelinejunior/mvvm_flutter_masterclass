@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mvvm_flutter_masterclass/domain/di/di.dart';
 import 'package:mvvm_flutter_masterclass/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:mvvm_flutter_masterclass/presentation/login/login_view_model/login_view_model.dart';
+import 'package:mvvm_flutter_masterclass/presentation/managers/routes_manager.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/strings_manager.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/values_manager.dart';
 
@@ -29,6 +32,12 @@ class _LoginViewState extends State<LoginView> {
 
     _passwordTextController.addListener(() =>
         _loginViewModel.setPassword(_passwordTextController.text.trimLeft()));
+
+    _loginViewModel.isUserLoggedStreamController.listen((isLogged) {
+      SchedulerBinding.instance?.addPostFrameCallback((time) {
+        Get.toNamed(ConstantsRoutes.mainRoute);
+      });
+    });
   }
 
   @override

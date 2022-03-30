@@ -10,10 +10,14 @@ import 'package:rxdart/rxdart.dart';
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
   final BehaviorSubject _userNameStreamController = BehaviorSubject<String>();
+
   final BehaviorSubject _userPasswordStreamController =
       BehaviorSubject<String>();
+
   final BehaviorSubject _isAllInputsValidStreamController =
       BehaviorSubject<void>();
+
+  final BehaviorSubject isUserLoggedStreamController = BehaviorSubject<bool>();
 
   var loginObject = LoginObject("", "");
 
@@ -31,6 +35,7 @@ class LoginViewModel extends BaseViewModel
     _userNameStreamController.close();
     _userPasswordStreamController.close();
     _isAllInputsValidStreamController.close();
+    isUserLoggedStreamController.close();
   }
 
 //from streams implementation
@@ -46,7 +51,7 @@ class LoginViewModel extends BaseViewModel
   @override
   loginUser() async {
     inputState.add(LoadingStateFlow(
-        stateRendererType: StateRendererType.POPUP_ERROR_STATE));
+        stateRendererType: StateRendererType.POPUP_LOADING_STATE));
 
     (await _loginUseCase?.execute(LoginUseCaseInputModel(
             email: loginObject.userName, password: loginObject.userPassword)))
@@ -61,11 +66,12 @@ class LoginViewModel extends BaseViewModel
         ),
         debugPrint(failure.message)
       },
-      (data) => {
+      (data) {
         //right -> success
-        inputState.add(ContentStateFlow()),
+        inputState.add(ContentStateFlow());
+        isUserLoggedStreamController.add(true);
         //go to main after loading
-        debugPrint(data.toString())
+        debugPrint(data.toString());
       },
     );
   }

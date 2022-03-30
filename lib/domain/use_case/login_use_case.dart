@@ -24,7 +24,7 @@ class LoginUseCase
     //   ),
     // );
 
-    await _repository.login(
+    return await _repository.login(
       LoginRequest(
         email: input.email,
         password: input.password,
@@ -32,6 +32,5 @@ class LoginUseCase
         deviceType: "Samsung J8",
       ),
     );
-    throw UnimplementedError();
   }
 }
