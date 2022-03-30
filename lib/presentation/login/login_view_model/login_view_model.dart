@@ -4,6 +4,7 @@ import 'package:mvvm_flutter_masterclass/domain/use_case/login_use_case.dart';
 import 'package:mvvm_flutter_masterclass/presentation/base/base_view_model.dart';
 import 'package:mvvm_flutter_masterclass/presentation/common/freezed_data_classes.dart';
 import 'package:mvvm_flutter_masterclass/presentation/common/state_renderer/state_render_impl.dart';
+import 'package:mvvm_flutter_masterclass/presentation/common/state_renderer/state_renderer.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LoginViewModel extends BaseViewModel
@@ -44,17 +45,29 @@ class LoginViewModel extends BaseViewModel
 
   @override
   loginUser() async {
+    inputState.add(LoadingStateFlow(
+        stateRendererType: StateRendererType.POPUP_ERROR_STATE));
+
     (await _loginUseCase?.execute(LoginUseCaseInputModel(
             email: loginObject.userName, password: loginObject.userPassword)))
         ?.fold(
-            (failure) => {
-                  // left -> failure
-                  debugPrint(failure.message)
-                },
-            (data) => {
-                  //right -> success
-                  debugPrint(data.toString())
-                });
+      (failure) => {
+        // left -> failure
+        inputState.add(
+          ErrorStateFlow(
+            message: failure.message,
+            stateRendererType: StateRendererType.FULL_SCREEN_ERROR_STATE,
+          ),
+        ),
+        debugPrint(failure.message)
+      },
+      (data) => {
+        //right -> success
+        inputState.add(ContentStateFlow()),
+        //go to main after loading
+        debugPrint(data.toString())
+      },
+    );
   }
 
   @override
