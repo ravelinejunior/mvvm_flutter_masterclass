@@ -46,9 +46,9 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goToMainView() {
-    _appPrefs.isUserLogged().then((isLogged) async {
+    _appPrefs.isOnBoardingScreenViewed().then((isLogged) async {
       if (isLogged) {
-        Get.offAndToNamed(ConstantsRoutes.mainRoute);
+        Get.offAndToNamed(ConstantsRoutes.loginRoute);
       } else {
         Get.offAndToNamed(ConstantsRoutes.onBoardingRoute);
       }

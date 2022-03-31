@@ -2,6 +2,7 @@ import 'package:mvvm_flutter_masterclass/app/extensions.dart';
 import 'package:mvvm_flutter_masterclass/data/model/authentication_model.dart';
 import 'package:mvvm_flutter_masterclass/data/model/contacts_model.dart';
 import 'package:mvvm_flutter_masterclass/data/model/customer_model.dart';
+import 'package:mvvm_flutter_masterclass/data/model/forget_password_model.dart';
 import 'package:mvvm_flutter_masterclass/data/response/responses.dart';
 
 const String emptyString = "";
@@ -34,5 +35,12 @@ extension AuthenticationResponseMapper on AuthenticationResponse? {
     return AuthenticationModel(
         contactsModel: this?.contactsResponse?.toDomain(),
         customerModel: this?.costumerResponse?.toDomain());
+  }
+}
+
+extension ForgetPasswordResponseMapper on ForgetPasswordResponse? {
+  ForgetPasswordModel toDomain() {
+    return ForgetPasswordModel(
+        support: this?.support?.orEmpty() ?? emptyString);
   }
 }

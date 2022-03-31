@@ -4,6 +4,7 @@ import 'package:mvvm_flutter_masterclass/data/response/responses.dart';
 
 abstract class RemoteDataSource {
   Future<AuthenticationResponse> loginDataSource(LoginRequest loginRequest);
+  Future<ForgetPasswordResponse> forgetPasswordDataSource(String email);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -18,5 +19,10 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       loginRequest.imei,
       loginRequest.deviceType,
     );
+  }
+
+  @override
+  Future<ForgetPasswordResponse> forgetPasswordDataSource(String email) async {
+    return await _appServiceClient.forgetPostRequest(email);
   }
 }
