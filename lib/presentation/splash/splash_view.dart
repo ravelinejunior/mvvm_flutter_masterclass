@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
+import 'package:mvvm_flutter_masterclass/app/app_prefs.dart';
+import 'package:mvvm_flutter_masterclass/domain/di/di.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/color_manager.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/routes_manager.dart';
 
@@ -15,6 +17,7 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   Timer? _timer;
+  final _appPrefs = instance<AppPreferences>();
 
   _startDelay() async {
     await Future.delayed(const Duration(seconds: 2)).then((value) {
@@ -43,7 +46,13 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goToMainView() {
-    Get.offAndToNamed(ConstantsRoutes.onBoardingRoute);
+    _appPrefs.isUserLogged().then((isLogged) async {
+      if (isLogged) {
+        Get.offAndToNamed(ConstantsRoutes.mainRoute);
+      } else {
+        Get.offAndToNamed(ConstantsRoutes.onBoardingRoute);
+      }
+    });
   }
 
   @override

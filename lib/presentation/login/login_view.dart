@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mvvm_flutter_masterclass/app/app_prefs.dart';
 import 'package:mvvm_flutter_masterclass/domain/di/di.dart';
 import 'package:mvvm_flutter_masterclass/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:mvvm_flutter_masterclass/presentation/login/login_view_model/login_view_model.dart';
@@ -19,6 +20,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   //initialized on DI
   final _loginViewModel = instance<LoginViewModel>();
+  final _appPrefs = instance<AppPreferences>();
 
   final _nameTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
@@ -35,6 +37,7 @@ class _LoginViewState extends State<LoginView> {
 
     _loginViewModel.isUserLoggedStreamController.listen((isLogged) {
       SchedulerBinding.instance?.addPostFrameCallback((time) {
+        _appPrefs.setIsUserLogged();
         Get.toNamed(ConstantsRoutes.mainRoute);
       });
     });

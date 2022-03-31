@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mvvm_flutter_masterclass/app/app_prefs.dart';
 import 'package:mvvm_flutter_masterclass/domain/di/di.dart';
 import 'package:mvvm_flutter_masterclass/presentation/boarding/boarding_view_model.dart';
 import 'package:mvvm_flutter_masterclass/presentation/boarding/components/boarding_component_view.dart';
@@ -21,6 +22,7 @@ class BoardingView extends StatefulWidget {
 class _BoardingViewState extends State<BoardingView> {
   final PageController _pageController = PageController(initialPage: 0);
   final OnBoardViewModel _boardingViewModel = OnBoardViewModel();
+  final _appPrefs = instance<AppPreferences>();
 
   _bind() {
     _boardingViewModel.start();
@@ -28,6 +30,7 @@ class _BoardingViewState extends State<BoardingView> {
 
   @override
   void initState() {
+    _appPrefs.setOnBoardingScreenViewed();
     _bind();
     super.initState();
   }
