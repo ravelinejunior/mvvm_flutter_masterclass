@@ -28,4 +28,5 @@ class AppStrings {
   static const String loadingString = "Loading";
   static const String retryAgainString = "Retry Again";
   static const String confirmString = "Confirm";
+  static const String forgetPasswordString = "Forget Password";
 }

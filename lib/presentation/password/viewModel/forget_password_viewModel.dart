@@ -28,11 +28,14 @@ class ForgetPasswordViewModel extends BaseViewModel
   }
 
   @override
-  void start() {
+  void start() async {
     inputState.add(
       LoadingStateFlow(
           stateRendererType: StateRendererType.POPUP_LOADING_STATE),
     );
+
+    await Future.delayed(const Duration(seconds: 1))
+        .then((value) => inputState.add(ContentStateFlow()));
   }
 
   @override

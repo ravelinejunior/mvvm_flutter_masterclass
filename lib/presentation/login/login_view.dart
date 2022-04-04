@@ -213,7 +213,9 @@ class _LoginViewState extends State<LoginView> {
                         primary: Colors.white,
                         backgroundColor: Colors.transparent,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(ConstantsRoutes.forgotPasswordRoute);
+                      },
                     ),
                     TextButton(
                       child: Text(AppStrings.registerString,
