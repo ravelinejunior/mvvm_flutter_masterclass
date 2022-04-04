@@ -122,7 +122,8 @@ abstract class LoginViewModelInputs {
   setUserName(String userName);
   setPassword(String password);
   loginUser();
-  // two sinks
+
+  // sinks
 
   Sink get inputUserName;
   Sink get inputUserPassword;

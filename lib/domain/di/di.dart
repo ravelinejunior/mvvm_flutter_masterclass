@@ -7,6 +7,7 @@ import 'package:mvvm_flutter_masterclass/data/api/network_info.dart';
 import 'package:mvvm_flutter_masterclass/data/datasource/remote_data_source.dart';
 import 'package:mvvm_flutter_masterclass/domain/repository/repository.dart';
 import 'package:mvvm_flutter_masterclass/domain/repository/repository_impl.dart';
+import 'package:mvvm_flutter_masterclass/domain/use_case/forget_password_use_case.dart';
 import 'package:mvvm_flutter_masterclass/domain/use_case/login_use_case.dart';
 import 'package:mvvm_flutter_masterclass/presentation/login/login_view_model/login_view_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,5 +45,9 @@ initLoginModule() {
   if (!GetIt.I.isRegistered<LoginUseCase>()) {
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
     instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
+  }
+  if (!GetIt.I.isRegistered<ForgetPasswordUseCase>()) {
+    instance.registerFactory<ForgetPasswordUseCase>(
+        () => ForgetPasswordUseCase(instance()));
   }
 }
