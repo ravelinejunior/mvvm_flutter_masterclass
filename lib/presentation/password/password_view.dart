@@ -5,7 +5,7 @@ import 'package:mvvm_flutter_masterclass/domain/di/di.dart';
 import 'package:mvvm_flutter_masterclass/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/strings_manager.dart';
 import 'package:mvvm_flutter_masterclass/presentation/managers/values_manager.dart';
-import 'package:mvvm_flutter_masterclass/presentation/password/viewModel/forget_password_viewModel.dart';
+import 'package:mvvm_flutter_masterclass/presentation/password/viewModel/forget_password_viewmodel.dart';
 
 class PasswordView extends StatefulWidget {
   const PasswordView({Key? key}) : super(key: key);

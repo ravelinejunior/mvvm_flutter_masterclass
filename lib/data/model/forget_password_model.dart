@@ -3,4 +3,7 @@ class ForgetPasswordModel {
   ForgetPasswordModel({
     this.support,
   });
+
+  @override
+  String toString() => 'ForgetPasswordModel(support: $support)';
 }
