@@ -160,3 +160,227 @@ abstract class _LoginObject implements LoginObject {
   _$LoginObjectCopyWith<_LoginObject> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+class _$RegisterObjectTearOff {
+  const _$RegisterObjectTearOff();
+
+  _RegisterObject call(String userName, String userEmail, String userPhone,
+      String userSex, String userPassword) {
+    return _RegisterObject(
+      userName,
+      userEmail,
+      userPhone,
+      userSex,
+      userPassword,
+    );
+  }
+}
+
+/// @nodoc
+const $RegisterObject = _$RegisterObjectTearOff();
+
+/// @nodoc
+mixin _$RegisterObject {
+  String get userName => throw _privateConstructorUsedError;
+  String get userEmail => throw _privateConstructorUsedError;
+  String get userPhone => throw _privateConstructorUsedError;
+  String get userSex => throw _privateConstructorUsedError;
+  String get userPassword => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $RegisterObjectCopyWith<RegisterObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RegisterObjectCopyWith<$Res> {
+  factory $RegisterObjectCopyWith(
+          RegisterObject value, $Res Function(RegisterObject) then) =
+      _$RegisterObjectCopyWithImpl<$Res>;
+  $Res call(
+      {String userName,
+      String userEmail,
+      String userPhone,
+      String userSex,
+      String userPassword});
+}
+
+/// @nodoc
+class _$RegisterObjectCopyWithImpl<$Res>
+    implements $RegisterObjectCopyWith<$Res> {
+  _$RegisterObjectCopyWithImpl(this._value, this._then);
+
+  final RegisterObject _value;
+  // ignore: unused_field
+  final $Res Function(RegisterObject) _then;
+
+  @override
+  $Res call({
+    Object? userName = freezed,
+    Object? userEmail = freezed,
+    Object? userPhone = freezed,
+    Object? userSex = freezed,
+    Object? userPassword = freezed,
+  }) {
+    return _then(_value.copyWith(
+      userName: userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      userEmail: userEmail == freezed
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
+              as String,
+      userPhone: userPhone == freezed
+          ? _value.userPhone
+          : userPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      userSex: userSex == freezed
+          ? _value.userSex
+          : userSex // ignore: cast_nullable_to_non_nullable
+              as String,
+      userPassword: userPassword == freezed
+          ? _value.userPassword
+          : userPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$RegisterObjectCopyWith<$Res>
+    implements $RegisterObjectCopyWith<$Res> {
+  factory _$RegisterObjectCopyWith(
+          _RegisterObject value, $Res Function(_RegisterObject) then) =
+      __$RegisterObjectCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String userName,
+      String userEmail,
+      String userPhone,
+      String userSex,
+      String userPassword});
+}
+
+/// @nodoc
+class __$RegisterObjectCopyWithImpl<$Res>
+    extends _$RegisterObjectCopyWithImpl<$Res>
+    implements _$RegisterObjectCopyWith<$Res> {
+  __$RegisterObjectCopyWithImpl(
+      _RegisterObject _value, $Res Function(_RegisterObject) _then)
+      : super(_value, (v) => _then(v as _RegisterObject));
+
+  @override
+  _RegisterObject get _value => super._value as _RegisterObject;
+
+  @override
+  $Res call({
+    Object? userName = freezed,
+    Object? userEmail = freezed,
+    Object? userPhone = freezed,
+    Object? userSex = freezed,
+    Object? userPassword = freezed,
+  }) {
+    return _then(_RegisterObject(
+      userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      userEmail == freezed
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
+              as String,
+      userPhone == freezed
+          ? _value.userPhone
+          : userPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      userSex == freezed
+          ? _value.userSex
+          : userSex // ignore: cast_nullable_to_non_nullable
+              as String,
+      userPassword == freezed
+          ? _value.userPassword
+          : userPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RegisterObject implements _RegisterObject {
+  _$_RegisterObject(this.userName, this.userEmail, this.userPhone, this.userSex,
+      this.userPassword);
+
+  @override
+  final String userName;
+  @override
+  final String userEmail;
+  @override
+  final String userPhone;
+  @override
+  final String userSex;
+  @override
+  final String userPassword;
+
+  @override
+  String toString() {
+    return 'RegisterObject(userName: $userName, userEmail: $userEmail, userPhone: $userPhone, userSex: $userSex, userPassword: $userPassword)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _RegisterObject &&
+            (identical(other.userName, userName) ||
+                const DeepCollectionEquality()
+                    .equals(other.userName, userName)) &&
+            (identical(other.userEmail, userEmail) ||
+                const DeepCollectionEquality()
+                    .equals(other.userEmail, userEmail)) &&
+            (identical(other.userPhone, userPhone) ||
+                const DeepCollectionEquality()
+                    .equals(other.userPhone, userPhone)) &&
+            (identical(other.userSex, userSex) ||
+                const DeepCollectionEquality()
+                    .equals(other.userSex, userSex)) &&
+            (identical(other.userPassword, userPassword) ||
+                const DeepCollectionEquality()
+                    .equals(other.userPassword, userPassword)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(userName) ^
+      const DeepCollectionEquality().hash(userEmail) ^
+      const DeepCollectionEquality().hash(userPhone) ^
+      const DeepCollectionEquality().hash(userSex) ^
+      const DeepCollectionEquality().hash(userPassword);
+
+  @JsonKey(ignore: true)
+  @override
+  _$RegisterObjectCopyWith<_RegisterObject> get copyWith =>
+      __$RegisterObjectCopyWithImpl<_RegisterObject>(this, _$identity);
+}
+
+abstract class _RegisterObject implements RegisterObject {
+  factory _RegisterObject(String userName, String userEmail, String userPhone,
+      String userSex, String userPassword) = _$_RegisterObject;
+
+  @override
+  String get userName => throw _privateConstructorUsedError;
+  @override
+  String get userEmail => throw _privateConstructorUsedError;
+  @override
+  String get userPhone => throw _privateConstructorUsedError;
+  @override
+  String get userSex => throw _privateConstructorUsedError;
+  @override
+  String get userPassword => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$RegisterObjectCopyWith<_RegisterObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
