@@ -228,7 +228,9 @@ class _LoginViewState extends State<LoginView> {
                         backgroundColor: Colors.transparent,
                         shadowColor: Colors.red,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(ConstantsRoutes.registerRoute);
+                      },
                     ),
                   ],
                 ),

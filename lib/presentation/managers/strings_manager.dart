@@ -25,8 +25,14 @@ class AppStrings {
   static const String loginString = "Login";
   static const String errorUserNameString = "Wrong user name";
   static const String errorUserPasswordString = "Wrong user password";
+  static const String errorUserPhoneString = "Wrong user phone format";
+  static const String errorUserSexString = "Wrong user sex";
+  static const String errorUserEmailString = "Wrong user email";
   static const String loadingString = "Loading";
   static const String retryAgainString = "Retry Again";
   static const String confirmString = "Confirm";
   static const String forgetPasswordString = "Forget Password";
+  static const String phoneString = "Phone";
+  static const String sexString = "Sex";
+  static const String registerTitleString = "Register";
 }

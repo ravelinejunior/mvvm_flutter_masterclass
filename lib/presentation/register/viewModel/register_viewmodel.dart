@@ -16,6 +16,8 @@ class RegisterViewModel extends BaseViewModel
   final BehaviorSubject _userPasswordStreamController =
       BehaviorSubject<String>();
 
+  final BehaviorSubject isUserLoggedStreamController = BehaviorSubject<bool>();
+
   final BehaviorSubject _userAllDataValidStreamController =
       BehaviorSubject<bool>();
 
@@ -36,6 +38,7 @@ class RegisterViewModel extends BaseViewModel
     _userPhoneStreamController.close();
     _userSexStreamController.close();
     _userPasswordStreamController.close();
+    isUserLoggedStreamController.close();
   }
 
   @override
@@ -94,35 +97,35 @@ class RegisterViewModel extends BaseViewModel
   @override
   setUserEmail(String userEmail) {
     _userEmailStreamController.add(userEmail);
-    registerObject.copyWith.call(userEmail: userEmail);
+    registerObject = registerObject.copyWith(userEmail: userEmail);
     inputUserAllDataValid.add(null);
   }
 
   @override
   setUserName(String userName) {
     _userNameStreamController.add(userName);
-    registerObject.copyWith.call(userName: userName);
+    registerObject = registerObject.copyWith(userName: userName);
     inputUserAllDataValid.add(null);
   }
 
   @override
   setUserPassword(String userPassword) {
     _userPasswordStreamController.add(userPassword);
-    registerObject.copyWith.call(userPassword: userPassword);
+    registerObject = registerObject.copyWith(userPassword: userPassword);
     inputUserAllDataValid.add(null);
   }
 
   @override
   setUserPhone(String userPhone) {
     _userPhoneStreamController.add(userPhone);
-    registerObject.copyWith.call(userPhone: userPhone);
+    registerObject = registerObject.copyWith(userPhone: userPhone);
     inputUserAllDataValid.add(null);
   }
 
   @override
   setUserSex(String userSex) {
     _userSexStreamController.add(userSex);
-    registerObject.copyWith.call(userSex: userSex);
+    registerObject = registerObject.copyWith(userSex: userSex);
     inputUserAllDataValid.add(null);
   }
 
@@ -153,6 +156,7 @@ class RegisterViewModel extends BaseViewModel
       },
       (data) => {
         inputState.add(ContentStateFlow()),
+        isUserLoggedStreamController.add(true),
         //go to main after loading
         debugPrint(data.toString())
       },
